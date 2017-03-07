@@ -1,0 +1,17 @@
+# Extract CDS features from GBK
+cds_extractor.pl -i GCF_000214615.1_Agro31749_1.0_genomic.gbff -p
+
+# Perform rpsblast
+rpsblast+ -query GCF_000214615.1_Agro31749_1.0_genomic.faa -db Cog -out rps-blast.out -evalue 1e-2 -outfmt 6
+
+# Assign cogs
+cdd2cog.pl -r rps-blast.out -c cddid.tbl -f fun.txt -w whog -a
+
+#FastQC command line for quality check
+files=$(ls /work/agrobacterium/data/*.fastq); fastqc -o ./ $files -t 10;
+
+#BWA Index command line
+bwa index -p agrobacterium GCF_000214615.1_Agro31749_1.0_genomic.fna
+
+#BWA Alignment command line
+bwa mem -t 5 ../agrobacterium *R1.fastq *R2.fastq > aln-pe.sam
