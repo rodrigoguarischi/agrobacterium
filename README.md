@@ -20,7 +20,7 @@ Second, we want to research the function of *fnrN* gene in *Agrobacterium sp.* A
 ## Method
 
 
-Samples of cell growth phase, curdlan-producing phase (aerobic) and curdlan-producing phase (anoxic treated) of both *Agrobacterium sp.* ATCC 31749 wild strain and ΔfnrN strain were collectecd to extract mRNA. 
+Samples of cell growth phase, curdlan-producing phase (aerobic) and curdlan-producing phase (anoxic treated) of both *Agrobacterium sp.* ATCC 31749 wild strain and ΔfnrN strain were collected to extract mRNA. 
 
 Each sample was treated in duplicate. Illumina Hiseq4000 was used to complete the research.
 
@@ -77,11 +77,11 @@ mutant_growth_aerobic **vs** mutant_production_aerobic
 mutant_production_aerobic **vs** mutant_production_anoxic
 
 
-and
+                            and
 
 
-wild_growth_aerobic **vs** mutant_growth_aerobic, wild_production_aerobic vs mutant_production_aerobic, wild_production_anoxic vs mutant_production_anoxic
+wild_growth_aerobic **vs** mutant_growth_aerobic, wild_production_aerobic **vs** mutant_production_aerobic, wild_production_anoxic **vs** mutant_production_anoxic
 
-wild_growth_aerobic **vs** wild_production_aerobic, mutant_growth_aerobic vs mutant_production_aerobic
+wild_growth_aerobic **vs** wild_production_aerobic, mutant_growth_aerobic **vs** mutant_production_aerobic
 
 wild_production_aerobic **vs** wild_production_anoxic, mutant_production_aerobic vs mutant_production_anoxic
