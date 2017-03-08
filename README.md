@@ -84,4 +84,4 @@ wild_growth_aerobic **vs** mutant_growth_aerobic, wild_production_aerobic **vs**
 
 wild_growth_aerobic **vs** wild_production_aerobic, mutant_growth_aerobic **vs** mutant_production_aerobic
 
-wild_production_aerobic **vs** wild_production_anoxic, mutant_production_aerobic vs mutant_production_anoxic
+wild_production_aerobic **vs** wild_production_anoxic, mutant_production_aerobic **vs** mutant_production_anoxic
