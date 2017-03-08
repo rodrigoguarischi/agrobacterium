@@ -15,3 +15,9 @@ bwa index -p agrobacterium GCF_000214615.1_Agro31749_1.0_genomic.fna
 
 #BWA Alignment command line
 bwa mem -t 5 ../agrobacterium *R1.fastq *R2.fastq > aln-pe.sam
+
+#Convert SAM to BAM
+samtools view -Sb aln-pe.sam > name.bam
+
+#Sort BAM files
+samtools sort name.bam name.sorted
