@@ -21,3 +21,9 @@ samtools view -Sb aln-pe.sam > name.bam
 
 #Sort BAM files (version samtools-0.1.19)
 samtools sort name.bam name.sorted
+
+#Comando para indexação do Salmon (version 0.8.0)
+salmon index -t GCF_000214615.1_Agro31749_1.0_genomic.ffn -i agrobacterium --type quasi -k 31
+
+#Comando para quantificar com Salmon (version 0.8.0)
+salmon quant -i ../agrobacterium -p 20 --useVBOpt --numBootstraps 100 --seqBias --gcBias -l A -1 *R1.fastq -2 *R2.fastq -o salmon_out
