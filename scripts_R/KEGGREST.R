@@ -37,31 +37,31 @@ for ( i in 1:length(kos.ids)){
 paths_description = stack(PATHWAY)
 keggID2keggTerm = data.frame(ENTRY,DEFINITION)
 
-#Encontrando a hierarquia das vias metabólicas
+#Formatar "Path_description.tsv" com o script "parse_pathwaysKEGG.pl" e importar a saída para o R
 
-brites = NULL
+write.table(paths_description, file = "Path_description.tsv", quote=FALSE, row.names=FALSE, col.names = FALSE, sep = "\t")
+keggID2pathways <- read.delim("/mnt/work1/agrobacterium/jhonatas/annotation/kegg/keggID2pathways.tsv", header=FALSE)
+colnames(keggID2pathways) = c("ENTRY", "PATHWAYS", "PATHWAYS-ID")
 
-for ( i in seq(1, length( kos.ids ), 10 ) ){
-  start <- i;
-  end <- ifelse(i+9 <= length( kos.ids ), i+9, length( kos.ids ) );
-  print( paste0( "querying from " , start , " to ", end ) );
-  brites <- c(brites, keggLink("brite", kos.ids[start:end] ) )
-}
+#Juntar os arquivos de saída em uma única tabela
 
-br = keggList("brite")
-tab_br = stack(br)
-tab_br = tab_br[c(-1,-2,-3,-4,-5,-6,-102,-103,-104,-105),] #remove BRITES não informativos
-tab_brites = stack(brites)
+kegg_annotation = merge(keggID2keggTerm,keggID2pathways, by="ENTRY", all = TRUE)
 
-colnames(tab_br) = c("BRITE","ID-BRITE")
-colnames(tab_brites) = c("ID-BRITE", "ID-KEGG")
-Tab_Path_Brites = merge(tab_brites, tab_br, by="ID-BRITE", all = TRUE)
-Tab_Path_Brites = na.omit(Tab_Path_Brites)
-rm(tab_br)
-rm(tab_brites)
+#Mapear genes com a tabela de anotação do KEGG
+
+genes2keggID_only_with_keggID <- read.delim("/mnt/work1/agrobacterium/jhonatas/annotation/kegg/genes2keggID_only_with_keggID.txt", header=FALSE)
+colnames(genes2keggID_only_with_keggID) = c("GENE","ENTRY")
+genes_kegg_annotation = merge(genes2keggID_only_with_keggID,kegg_annotation, by="ENTRY", all = TRUE)
+colnames(genes_kegg_annotation) = c("KEGG-ID","GENE","KEGG-TERM","PATHWAY","PATHWAY-ID")
+
+#Removendo arquivos intermediários
+rm(paths_description)
+rm(genes2keggID_only_with_keggID)
+rm(KO_list)
+rm(kegg_annotation)
+rm(keggID2pathways)
+rm(keggID2keggTerm)
 
 #Exportando os resultados
 
-write.table(keggID2keggTerm, file = "keggID2keggTerm.tsv", quote=FALSE, row.names=FALSE, col.names = TRUE, sep = "\t")
-write.table(Tab_Path_Brites, file = "Tab_Path_Brites.tsv", quote=FALSE, row.names=FALSE, col.names = TRUE, sep = "\t")
-write.table(paths_description, file = "Path_description.tsv", quote=FALSE, row.names=FALSE, col.names = FALSE, sep = "\t")
+write.table(genes_kegg_annotation, file = "genes_kegg_annotation.tsv", quote=FALSE, row.names=FALSE, col.names = TRUE, sep = "\t")
