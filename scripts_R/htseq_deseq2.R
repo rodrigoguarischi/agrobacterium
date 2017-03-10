@@ -1,3 +1,5 @@
+#DESeq2 (version 1.12.3)
+
 setwd("/work/agrobacterium/jhonatas/quant_gene_expression/htseq/")
 
 #preparando arquivo do HTSeq

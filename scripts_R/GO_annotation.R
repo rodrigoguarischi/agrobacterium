@@ -1,3 +1,5 @@
+#clusterProfiler (version 3.0.5)
+
 #Abrir arquivo com GO IDs
 
 gene2GO <- read.delim("/mnt/work1/agrobacterium/jhonatas/annotation/interproscan/gene2GO.tsv", header=FALSE)

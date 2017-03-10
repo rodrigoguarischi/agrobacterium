@@ -1,3 +1,5 @@
+#KEGGREST (version 1.12.3)
+
 #Instalando KEGGREST
 
 source("https://bioconductor.org/biocLite.R")

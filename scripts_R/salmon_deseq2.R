@@ -1,3 +1,6 @@
+#DESeq2 (version 1.12.3)
+#tximport (version 1.0.3)
+
 setwd("/work/agrobacterium/jhonatas/quant_gene_expression/salmon/")
 
 #preparando arquivo do Salmon com Tximport:
