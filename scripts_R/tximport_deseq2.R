@@ -23,10 +23,6 @@ names(files) = c("wga","wga_1","wpa","wpa_1","wpn","wpn_1","mga","mga_1","mpa","
 
 txi = tximport(files, type = "salmon", txOut = TRUE)
 
-#Rodando DESeq2
-
-library(DESeq2)
-
 ##grupos separados
 #sampleTable = data.frame(type = factor(rep(c("wild","mutant"),each=6)), condition = factor(c("growth","growth","production","production","production","production","growth","growth","production","production","production","production")), treatment = factor(c("aerobic","aerobic","aerobic","aerobic","anoxic","anoxic","aerobic","aerobic","aerobic","aerobic","anoxic","anoxic")))
 #rownames(sampleTable) = colnames(txi$counts)
@@ -41,6 +37,10 @@ library(DESeq2)
 
 sampleTable = data.frame(group = factor(rep(c("wga","wpa","wpn","mga","mpa","mpn"),each=2)))
 rownames(sampleTable) = colnames(txi$counts)
+
+#Rodando DESeq2
+
+library(DESeq2)
 
 dds = DESeqDataSetFromTximport(txi, sampleTable, ~ group)
 keepdds = rowSums(counts(dds)) > 1
