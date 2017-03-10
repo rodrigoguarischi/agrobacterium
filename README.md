@@ -46,21 +46,21 @@ Each sample was treated in duplicate. Illumina Hiseq4000 was used to complete th
 ## Mission
 
 
-1) **Read alignment will be performed using Bowtie2 or BWA using *Agrobacterium sp.* ATCC 31749's genome retrieved from NCBI. (Completed)**
+**1) Read alignment will be performed using Bowtie2 or BWA using *Agrobacterium sp.* ATCC 31749's genome retrieved from NCBI. (Completed)**
 
-2) Based on alignment files, quantification will be performed using HTSeq-count using RefSeq's genome annotation.
+**2) Based on alignment files, quantification will be performed using HTSeq-count using RefSeq's genome annotation. The quantification also will be performed using Salmon. (Completed)**
 
-3) **Each gene from RefSeq's annotation will be assigned to a COG category. (Completed)**
+**3) Each gene from RefSeq's annotation will be assigned to a COG category. (Completed)**
 
-4) **Each gene from RefSeq's annotation will be assigned to a GO term and each GO annotation will be classified to BP, CC or MF. (Completed)**
+**4) Each gene from RefSeq's annotation will be assigned to a GO term and each GO annotation will be classified to BP, CC or MF. (Completed)**
 
-5) **Each gene from RefSeq's annotation will be assigned to a KEGG term and a KEGG pathway. (Completed)**
+**5) Each gene from RefSeq's annotation will be assigned to a KEGG term and a KEGG pathway. (Completed)**
 
-6) Differential expression analysis will be performed according your methods, then All comparisons will be made and displayed on a heatmap clustering genes by it's expression profiles.
+**6) Differential expression analysis will be performed with DESeq2 based on the comparison groups. (Completed)**
 
 7) An enrichment analysis will be performed to determine enriched COGs on all comparisons between groups. And the enrichment analysis of GO terms and KEGG patnways on all comparisons between groups are also needed.
 
-8) PCA analysis map, Cluster analysis map and Scatter plot map, Venn diagram of Differentially expressed genes on all comparisons between groups
+8) PCA analysis map, Cluster analysis map (heatmap) and Scatter plot map, Venn diagram of Differentially expressed genes on all comparisons between groups.
 
 
 ### Data comparison analysis according to the following groups:
