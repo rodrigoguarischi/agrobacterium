@@ -34,6 +34,9 @@ bowtie2-build -f GCF_000214615.1_Agro31749_1.0_genomic.fna agrobacterium
 #Comando para rodar Bowtie2 (version 2.2.6)
 bowtie2 -p 10 --mp 30 --rdg 25,15 --rfg 25,15 -x ../agrobacterium -1 *R1.fastq -2 *R2.fastq -S aln-pe.sam
 
+#Comando para rodar HTSeq-count (version 0.5.4p3)
+htseq-count -f bam -r pos -s reverse -t gene -i locus_tag *bam ../GCF_000214615.1_Agro31749_1.0_genomic.gff
+
 #Comando para rodar Interproscan (version 5.10)
 interproscan -i GCF_000214615.1_Agro31749_1.0_genomic.faa -dp -f tsv -goterms -iprlookup -o interproscan_out.tsv -pa -appl Pfam
 
