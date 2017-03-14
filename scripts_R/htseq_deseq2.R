@@ -64,7 +64,7 @@ summary(mpaXmpn)
 
 #Exportando resultados
 
-setwd("./DEG/")
+setwd("./DEG/deseq2/lfc_threshold/")
 
 wgaXmga_out = subset(wgaXmga, wgaXmga$padj <= 0.05)
 write.table(as.data.frame(wgaXmga_out), file = "wild_growth_aerobicXmutant_growth_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
