@@ -5,8 +5,8 @@ setwd("/work/agrobacterium/jhonatas/quant_gene_expression/htseq/")
 #preparando arquivo do HTSeq
 directory = "."
 sampleFiles = grep("count.txt",list.files(directory),value = TRUE)
-sampleCondition = rep(c("mga","mpa","mpn","wga","wpa","wpn"),each=2)
-sampleTable = data.frame(sampleName = sampleFiles, fileName = sampleFiles, condition = sampleCondition)
+sampleCondition = rep(c("F1","F2","F3","Y1","Y2","Y3"),each=2)
+sampleTable = data.frame(sampleName = c("F1","F1_1","F2","F2_1","F3","F3_1","Y1","Y1_1","Y2","Y2_1","Y3","Y3_1"), fileName = sampleFiles, condition = sampleCondition)
 
 #Rodando DESeq2
 
@@ -22,7 +22,7 @@ dds = DESeq(dds)
 #PCA Plot
 
 rld <- rlog(dds, blind=FALSE)
-plotPCA(rld, intgroup = c("condition"), ntop = 5161)
+plotPCA(rld)
 
 ##Comparações de grupos
 
@@ -61,6 +61,27 @@ mpaXmpn = results(dds, lfcThreshold = 1, contrast = c("condition","mpa","mpn"))
 mpaXmpp = mpaXmpn[order(mpaXmpn$log2FoldChange),]
 summary(mpaXmpn)
 
+#Heatmap
+library(pheatmap)
+tab_contagem = as.data.frame(counts(dds)) #tabela com as contagens
+DEgenes = read.table("/mnt/work1/agrobacterium/jhonatas/quant_gene_expression/htseq/DEG/deseq2/lfc_threshold/DEgenes.txt", quote="\"", comment.char="")
+DEgenes = as.character(DEgenes$V1) #lista de todos os genes DE em todas as condições
+DE_counts = tab_contagem[DEgenes,] #tabela com as contagens para os genes DE
+log2_DEcounts = log2(DE_counts+1) #transformando contagens pelo Log2
+sampleDist = dist(t(log2_DEcounts)) #Calculando distância euclidiana entre as amostras
+sampleDistMatrix = as.matrix(sampleDist) #Gerando matriz de distâncias
+
+annotation = data.frame(Condition = rep(c("F1","F2","F3","Y1","Y2","Y3"),each=2))
+rownames(annotation) = c("F1","F1_1","F2","F2_1","F3","F3_1","Y1","Y1_1","Y2","Y2_1","Y3","Y3_1")
+ann_color = list(Condition = c(F1 ="blue", F2 = "yellow", F3 = "magenta", Y1 = "brown", Y2 = "darkcyan", Y3 = "lavender"))
+
+library(RColorBrewer)
+color = colorRampPalette(rev(brewer.pal(9,"Reds")))(255)
+
+pheatmap(sampleDistMatrix, clustering_distance_rows = sampleDist, clustering_distance_cols = sampleDist,
+         color = color, legend = TRUE, annotation_row = annotation, annotation_col = annotation, annotation_colors = ann_color)
+
+##install.packages("BoutrosLab.plotting.general", repos = "http://bpg.oicr.on.ca") ##Instalando BoutrosLab package
 
 #Exportando resultados
 
