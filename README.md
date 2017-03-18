@@ -58,9 +58,9 @@ Each sample was treated in duplicate. Illumina Hiseq4000 was used to complete th
 
 **6) Differential expression analysis will be performed with DESeq2 based on the comparison groups. (Completed)**
 
-7) An enrichment analysis will be performed to determine enriched COGs on all comparisons between groups. And the enrichment analysis of GO terms and KEGG patnways on all comparisons between groups are also needed.
+**7) An enrichment analysis will be performed to determine enriched COGs on all comparisons between groups. And the enrichment analysis of GO terms and KEGG patnways on all comparisons between groups are also needed. (Completed)**
 
-8) PCA analysis map, Cluster analysis map (heatmap) and Scatter plot map, Venn diagram of Differentially expressed genes on all comparisons between groups.
+**8) PCA analysis map, Cluster analysis map (heatmap) and Scatter plot map, Venn diagram of Differentially expressed genes on all comparisons between groups. (Completed)**
 
 
 ### Data comparison analysis according to the following groups:
