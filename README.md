@@ -28,17 +28,17 @@ Each sample was treated in duplicate. Illumina Hiseq4000 was used to complete th
 ## Sample description
 
 
-**wild_growth_aerobic:** wild type strain, cell growth phase in aerobic culture condition.
+**wild_growth_aerobic (Y1):** wild type strain, cell growth phase in aerobic culture condition.
 
-**wild_production_aerobic:** wild type strain, curdlan production phase in aerobic culture condition.
+**wild_production_aerobic (Y2):** wild type strain, curdlan production phase in aerobic culture condition.
 
-**wild_production_anoxic:** wild type strain, curdlan production phase in anoxic culture condition.
+**wild_production_anoxic (Y3):** wild type strain, curdlan production phase in anoxic culture condition.
 
-**mutant_growth_aerobic:** ΔfnrN strain, cell growth phase in aerobic culture condition.
+**mutant_growth_aerobic (F1):** ΔfnrN strain, cell growth phase in aerobic culture condition.
 
-**mutant_production_aerobic:** ΔfnrN strain, curdlan production phase in aerobic culture condition.
+**mutant_production_aerobic (F2):** ΔfnrN strain, curdlan production phase in aerobic culture condition.
 
-**mutant_production_anoxic:** ΔfnrN strain, curdlan production phase in anoxic culture condition.
+**mutant_production_anoxic (F3):** ΔfnrN strain, curdlan production phase in anoxic culture condition.
 
 ---
 
@@ -46,7 +46,7 @@ Each sample was treated in duplicate. Illumina Hiseq4000 was used to complete th
 ## Mission
 
 
-**1) Read alignment will be performed using Bowtie2 or BWA using *Agrobacterium sp.* ATCC 31749's genome retrieved from NCBI. (Completed)**
+**1) Read alignment will be performed using Bowtie2 *Agrobacterium sp.* ATCC 31749's genome retrieved from NCBI. (Completed)**
 
 **2) Based on alignment files, quantification will be performed using HTSeq-count using RefSeq's genome annotation. The quantification also will be performed using Salmon. (Completed)**
 
@@ -58,34 +58,34 @@ Each sample was treated in duplicate. Illumina Hiseq4000 was used to complete th
 
 **6) Differential expression analysis will be performed with DESeq2 based on the comparison groups. (Completed)**
 
-**7) An enrichment analysis will be performed to determine enriched COGs on all comparisons between groups. And the enrichment analysis of GO terms and KEGG patnways on all comparisons between groups are also needed. (Completed)**
+**7) An enrichment analysis will be performed to determine enriched COGs on all comparisons between groups. And the enrichment analysis of GO terms and KEGG pathways on all comparisons between groups are also needed. (Completed)**
 
-**8) PCA analysis map, Cluster analysis map (heatmap) and Scatter plot map, Venn diagram of Differentially expressed genes on all comparisons between groups. (Completed)**
+**8) PCA analysis map and cluster analysis map (heatmap), Venn diagram of Differentially expressed genes on all comparisons between groups. (Completed)**
 
 
 ### Data comparison analysis according to the following groups:
 
 
-wild_growth_aerobic **vs** mutant_growth_aerobic
+wild_growth_aerobic (Y1) **vs** mutant_growth_aerobic (F1)
 
-wild_production_aerobic **vs** mutant_production_aerobic
+wild_production_aerobic (Y2) **vs** mutant_production_aerobic (F2)
 
-wild_production_anoxic **vs** mutant_production_anoxic
+wild_production_anoxic (Y3) **vs** mutant_production_anoxic (F3)
 
-wild_growth_aerobic **vs** wild_production_aerobic
+wild_growth_aerobic (Y1) **vs** wild_production_aerobic (Y2)
 
-wild_production_aerobic **vs** wild_production_anoxic
+wild_production_aerobic (Y2) **vs** wild_production_anoxic (Y3)
 
-mutant_growth_aerobic **vs** mutant_production_aerobic
+mutant_growth_aerobic (F1) **vs** mutant_production_aerobic (F2)
 
-mutant_production_aerobic **vs** mutant_production_anoxic
-
-
-                            and
+mutant_production_aerobic (F2) **vs** mutant_production_anoxic (F3)
 
 
-wild_growth_aerobic **vs** mutant_growth_aerobic, wild_production_aerobic **vs** mutant_production_aerobic, wild_production_anoxic **vs** mutant_production_anoxic
+### Venn Diagrams of the following groups
 
-wild_growth_aerobic **vs** wild_production_aerobic, mutant_growth_aerobic **vs** mutant_production_aerobic
 
-wild_production_aerobic **vs** wild_production_anoxic, mutant_production_aerobic **vs** mutant_production_anoxic
+wild_growth_aerobic (Y1) **vs** mutant_growth_aerobic (F1), wild_production_aerobic (Y2) **vs** mutant_production_aerobic (F2), wild_production_anoxic (Y3) **vs** mutant_production_anoxic (F3)
+
+wild_growth_aerobic (Y1) **vs** wild_production_aerobic (Y2), mutant_growth_aerobic (F1) **vs** mutant_production_aerobic (F2)
+
+wild_production_aerobic (Y2) **vs** wild_production_anoxic (Y3), mutant_production_aerobic (F2) **vs** mutant_production_anoxic (F3)
