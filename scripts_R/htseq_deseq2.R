@@ -61,7 +61,7 @@ mpaXmpn = results(dds, lfcThreshold = 1, contrast = c("condition","mpa","mpn"))
 mpaXmpp = mpaXmpn[order(mpaXmpn$log2FoldChange),]
 summary(mpaXmpn)
 
-#Heatmap
+#Heatmap (version 1.0.8)
 library(pheatmap)
 tab_contagem = as.data.frame(counts(dds)) #tabela com as contagens
 DEgenes = read.table("/mnt/work1/agrobacterium/jhonatas/quant_gene_expression/htseq/DEG/deseq2/lfc_threshold/DEgenes.txt", quote="\"", comment.char="")
