@@ -64,7 +64,7 @@ summary(mpaXmpn)
 #Heatmap (version 1.0.8)
 library(pheatmap)
 tab_contagem = as.data.frame(counts(dds)) #tabela com as contagens
-DEgenes = read.table("/mnt/work1/agrobacterium/jhonatas/quant_gene_expression/htseq/DEG/deseq2/lfc_threshold/DEgenes.txt", quote="\"", comment.char="")
+DEgenes = read.table("/mnt/work1/agrobacterium/jhonatas/quant_gene_expression/htseq/DEG/deseq2/lfc_threshold/DE_genes.txt", quote="\"", comment.char="")
 DEgenes = as.character(DEgenes$V1) #lista de todos os genes DE em todas as condições
 DE_counts = tab_contagem[DEgenes,] #tabela com as contagens para os genes DE
 log2_DEcounts = log2(DE_counts+1) #transformando contagens pelo Log2
