@@ -27,41 +27,57 @@ plotPCA(rld)
 ##Comparações de grupos
 
 ### wild_growth_aerobic vs mutant_growth_aerobic
-wgaXmga = results(dds, lfcThreshold = 1, contrast = c("condition","wga","mga"));
-wgaXmga = wgaXmga[order(wgaXmga$log2FoldChange),]
-summary(wgaXmga)
+Y1XF1 = results(dds, lfcThreshold = 1, contrast = c("condition","Y1","F1"));
+Y1XF1 = Y1XF1[order(Y1XF1$log2FoldChange),] # ordenar por LFC
+Y1XF1 = Y1XF1[order(rownames(Y1XF1)),] #ordenar pelo nome do gene
+summary(Y1XF1)
 
 ### wild_production_aerobic vs mutant_production_aerobic
-wpaXmpa = results(dds, lfcThreshold = 1, contrast = c("condition","wpa","mpa"))
-wpaXmpa = wpaXmpa[order(wpaXmpa$log2FoldChange),]
-summary(wpaXmpa)
+Y2XF2 = results(dds, lfcThreshold = 1, contrast = c("condition","Y2","F2"))
+Y2XF2 = Y2XF2[order(Y2XF2$log2FoldChange),] # ordenar por LFC
+Y2XF2 = Y2XF2[order(rownames(Y2XF2)),] #ordenar pelo nome do gene
+summary(Y2XF2)
 
 ### wild_production_anoxic vs mutant_production_anoxic
-wpnXmpn = results(dds, lfcThreshold = 1, contrast = c("condition","wpn","mpn"))
-wpnXmpn = wpnXmpn[order(wpnXmpn$log2FoldChange),]
-summary(wpnXmpn)
+Y3XF3 = results(dds, lfcThreshold = 1, contrast = c("condition","Y3","F3"))
+Y3XF3 = Y3XF3[order(Y3XF3$log2FoldChange),] # ordenar por LFC
+Y3XF3 = Y3XF3[order(rownames(Y3XF3)),] #ordenar pelo nome do gene
+summary(Y3XF3)
 
 ### wild_growth_aerobic vs wild_production_aerobic
-wgaXwpa = results(dds, lfcThreshold = 1, contrast = c("condition","wga","wpa"))
-wgaXwpa = wgaXwpa[order(wgaXwpa$log2FoldChange),]
-summary(wgaXwpa)
+Y1XY2 = results(dds, lfcThreshold = 1, contrast = c("condition","Y1","Y2"))
+Y1XY2 = Y1XY2[order(Y1XY2$log2FoldChange),] # ordenar por LFC
+Y1XY2 = Y1XY2[order(rownames(Y1XY2)),] #ordenar pelo nome do gene
+summary(Y1XY2)
 
 ### wild_production_aerobic vs wild_production_anoxic
-wpaXwpn = results(dds, lfcThreshold = 1, contrast = c("condition","wpa","wpn"))
-wpaXwpn = wpaXwpn[order(wpaXwpn$log2FoldChange),]
-summary(wpaXwpn)
+Y2XY3 = results(dds, lfcThreshold = 1, contrast = c("condition","Y2","Y3"))
+Y2XY3 = Y2XY3[order(Y2XY3$log2FoldChange),] # ordenar por LFC
+Y2XY3 = Y2XY3[order(rownames(Y2XY3)),] #ordenar pelo nome do gene
+summary(Y2XY3)
 
 ### mutant_growth_aerobic vs mutant_production_aerobic
-mgaXmpa = results(dds, lfcThreshold = 1, contrast = c("condition","mga","mpa"))
-mgaXmpa = mgaXmpa[order(mgaXmpa$log2FoldChange),]
-summary(mgaXmpa)
+F1XF2 = results(dds, lfcThreshold = 1, contrast = c("condition","F1","F2"))
+F1XF2 = F1XF2[order(F1XF2$log2FoldChange),] # ordenar por LFC
+F1XF2 = F1XF2[order(rownames(F1XF2)),] #ordenar pelo nome do gene
+summary(F1XF2)
 
 ### mutant_production_aerobic vs mutant_production_anoxic
-mpaXmpn = results(dds, lfcThreshold = 1, contrast = c("condition","mpa","mpn"))
-mpaXmpp = mpaXmpn[order(mpaXmpn$log2FoldChange),]
-summary(mpaXmpn)
+F2XF3 = results(dds, lfcThreshold = 1, contrast = c("condition","F2","F3"))
+F2XF3 = F2XF3[order(F2XF3$log2FoldChange),] # ordenar por LFC
+F2XF3 = F2XF3[order(rownames(F2XF3)),] #ordenar pelo nome do gene
+summary(F2XF3)
 
-#Heatmap (version 1.0.8)
+##Preparando tabela de LFC para Heatmap, ordenar results pelo nome do gene!!!
+
+lfc_DEG = data.frame(Y1XF1$log2FoldChange,Y2XF2$log2FoldChange,Y3XF3$log2FoldChange,Y1XY2$log2FoldChange,Y2XY3$log2FoldChange,F1XF2$log2FoldChange,F2XF3$log2FoldChange)
+colnames(lfc_DEG) = c("Y1_F1","Y2_F2","Y3_F3","Y1_Y2","Y2_Y3","F1_F2","F2_F3")
+rownames(lfc_DEG) = rownames(Y1XF1)
+lfc_DEG = lfc_DEG[DEgenes,]
+setwd("./DEG/deseq2/lfc_threshold/")
+save(lfc_DEG, file = "lfc_DEG.RData")
+
+#pheatmap (version 1.0.8)
 library(pheatmap)
 tab_contagem = as.data.frame(counts(dds)) #tabela com as contagens
 DEgenes = read.table("/mnt/work1/agrobacterium/jhonatas/quant_gene_expression/htseq/DEG/deseq2/lfc_threshold/DE_genes.txt", quote="\"", comment.char="")
@@ -87,23 +103,23 @@ pheatmap(sampleDistMatrix, clustering_distance_rows = sampleDist, clustering_dis
 
 setwd("./DEG/deseq2/lfc_threshold/")
 
-wgaXmga_out = subset(wgaXmga, wgaXmga$padj <= 0.05)
-write.table(as.data.frame(wgaXmga_out), file = "wild_growth_aerobicXmutant_growth_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
+Y1XF1_out = subset(Y1XF1, Y1XF1$padj <= 0.05)
+write.table(as.data.frame(Y1XF1_out), file = "wild_growth_aerobicXmutant_growth_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
 
-wpaXmpa_out = subset(wpaXmpa, wpaXmpa$padj <= 0.05)
-write.table(as.data.frame(wpaXmpa_out), file = "wild_production_aerobicXmutant_production_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
+Y2XF2_out = subset(Y2XF2, Y2XF2$padj <= 0.05)
+write.table(as.data.frame(Y2XF2_out), file = "wild_production_aerobicXmutant_production_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
 
-wpnXmpn_out = subset(wpnXmpn, wpnXmpn$padj <= 0.05)
-write.table(as.data.frame(wpnXmpn_out), file = "wild_production_anoxicXmutant_production_anoxic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
+Y3XF3_out = subset(Y3XF3, Y3XF3$padj <= 0.05)
+write.table(as.data.frame(Y3XF3_out), file = "wild_production_anoxicXmutant_production_anoxic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
 
-wgaXwpa_out = subset(wgaXwpa, wgaXwpa$padj <= 0.05)
-write.table(as.data.frame(wgaXwpa_out), file = "wild_growth_aerobicXwild_production_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
+Y1XY2_out = subset(Y1XY2, Y1XY2$padj <= 0.05)
+write.table(as.data.frame(Y1XY2_out), file = "wild_growth_aerobicXwild_production_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
 
-wpaXwpn_out = subset(wpaXwpn, wpaXwpn$padj <= 0.05)
-write.table(as.data.frame(wpaXwpn_out), file = "wild_production_aerobicXwild_production_anoxic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
+Y2XY3_out = subset(Y2XY3, Y2XY3$padj <= 0.05)
+write.table(as.data.frame(Y2XY3_out), file = "wild_production_aerobicXwild_production_anoxic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
 
-mgaXmpa_out = subset(mgaXmpa, mgaXmpa$padj <= 0.05)
-write.table(as.data.frame(mgaXmpa_out), file = "mutant_growth_aerobicXmutant_production_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
+F1XF2_out = subset(F1XF2, F1XF2$padj <= 0.05)
+write.table(as.data.frame(F1XF2_out), file = "mutant_growth_aerobicXmutant_production_aerobic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
 
-mpaXmpn_out = subset(mpaXmpn, mpaXmpn$padj <= 0.05)
-write.table(as.data.frame(mpaXmpn_out), file = "mutant_production_aerobicXmutant_production_anoxic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
+F2XF3_out = subset(F2XF3, F2XF3$padj <= 0.05)
+write.table(as.data.frame(F2XF3_out), file = "mutant_production_aerobicXmutant_production_anoxic.txt", sep = "\t", row.names = TRUE, col.names = TRUE, na = "NA", dec = ".")
