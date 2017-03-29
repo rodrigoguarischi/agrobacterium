@@ -32,8 +32,13 @@ PATHWAY = NULL;
 
 for ( i in 1:length(kos.ids)){
     ENTRY = c(ENTRY, query[[i]]$ENTRY);
-    DEFINITION = c(DEFINITION, query[[i]]$DEFINITION);
-    PATHWAY = c(PATHWAY, c(kos.ids[i],query[[i]]$PATHWAY))
+    PATHWAY = c(PATHWAY, c(kos.ids[i],query[[i]]$PATHWAY));
+    if (is.null(query[[i]]$DEFINITION) == TRUE) {
+      DEFINITION = c(DEFINITION, "NA");
+    }
+    else {
+      DEFINITION = c(DEFINITION, query[[i]]$DEFINITION);
+    }
 }
 
 paths_description = stack(PATHWAY)
